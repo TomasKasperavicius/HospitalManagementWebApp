@@ -1,8 +1,95 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var cards = new List<dynamic>
+    {
+        new { Image = "~/images/CALENDAR.svg", Text = "MAKE AN APPOINTMENT" },
+        new { Image = "~/images/DOCTOR.svg", Text = "FIND A DOCTOR" },
+        new { Image = "~/images/REPORT.svg", Text = "VIEW LAB REPORTS" },
+        new { Image = "~/images/DOCUMENT.svg", Text = "DOCUMENTS" },
+        new { Image = "~/images/TODOLIST.svg", Text = "APPOINTMENT LIST" },
+        new { Image = "~/images/REPORT.svg", Text = "UPLOAD DOCUMENTS" },
+        new { Image = "~/images/PHONECALL.svg", Text = "CALL FOR AN APPOINTMENT" },
+        new { Image = "~/images/CONTACT.svg", Text = "CONTACT US" },
+        new { Image = "~/images/USER.svg", Text = "ABOUT US" }
+    };
+    var carouselImages = new List<string>
+    {
+        "~/images/HOSPITAL5.webp",
+        "~/images/HOSPITAL2.jfif",
+        "~/images/HOSPITAL3.jpg",
+        "~/images/HOSPITAL4.webp"
+    };
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@* Image carousel *@
+<div id="imageCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        @for (int i = 0; i < carouselImages.Count; i++)
+        {
+            <div class="carousel-item @(i == 0 ? "active" : "")" style="height: 400px;">
+                <img src="@Url.Content(carouselImages[i])" class="d-block w-100 h-100" alt="@System.IO.Path.GetFileNameWithoutExtension(Url.Content(carouselImages[i]))" style="object-fit: cover;">
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlides" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselSlides" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+@* Image carousel indicators (circles below) *@
+<div class="d-flex justify-content-center mt-3" id="carouselIndicators">
+    <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="0" class="active rounded-circle mx-2" aria-current="true" aria-label="Slide 1" style="width: 30px; height: 30px; background-color: #0D8F83; border: none;"></button>
+    <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="1" aria-label="Slide 2" style="width: 30px; height: 30px; background-color: #D9D9D9; border: none;" class="rounded-circle mx-2"></button>
+    <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="2" aria-label="Slide 3" style="width: 30px; height: 30px; background-color: #D9D9D9; border: none;" class="rounded-circle mx-2"></button>
+    <button type="button" data-bs-target="#carouselSlides" data-bs-slide-to="3" aria-label="Slide 4" style="width: 30px; height: 30px; background-color: #D9D9D9; border: none;" class="rounded-circle mx-2"></button>
+</div>
+@* Navigation grid *@
+<div class="container text-center mt-5">
+    @for (int i = 0; i < cards.Count; i += 3)
+    {
+        <div class="row justify-content-center mt-4">
+            @for (int j = 0; j < 3; j++)
+            {
+                if (i + j < cards.Count)
+                {
+                    <div class="col-md-4">
+                        <div class="card flex justify-content-center align-items-center">
+                            <img src="@Url.Content(cards[i + j].Image)" class="card-img-top" style="height: 50px; width: 50px; margin-top: 10px;" alt="@System.IO.Path.GetFileNameWithoutExtension(Url.Content(cards[i + j].Image))">
+                            <div class="card-body">
+                                <p class="card-text">@cards[i + j].Text</p>
+                            </div>
+                            <a href="#" class="stretched-link"></a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
+<style>
+    .card:hover {
+        background-color: #0D8F83;
+    }
+</style>
+<script>
+    const carouselElement = document.querySelector('#carouselSlides');
+    const indicators = document.querySelectorAll('#carouselIndicators button');
+
+    // Function to update indicator background color based on index
+    function updateIndicators(activeIndex) {
+        indicators.forEach((indicator, index) => {
+            indicator.style.backgroundColor = index === activeIndex ? '#0D8F83' : '#D9D9D9';
+        });
+    }
+
+    // First indicator as an active element
+    updateIndicators(0);
+
+    // Listen to carousel slide event and update corresponding indicator background color
+    carouselElement.addEventListener('slide.bs.carousel', function (event) {
+        updateIndicators(event.to);
+    });
+</script>

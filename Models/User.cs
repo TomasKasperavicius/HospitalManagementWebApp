@@ -15,6 +15,13 @@ namespace HospitalManagementWebApp.Models
         public string Email { get; set; }
         [Required]
         public string Phone { get; set; }
+        Role Role { get; set; }
 
     }
+    public enum Role { 
+        Admin,
+        Patient,
+        Doctor
+    }
+
 }
