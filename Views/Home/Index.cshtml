@@ -21,7 +21,7 @@
     };
 }
 @* Image carousel *@
-<div id="imageCarousel" class="carousel slide" data-ride="carousel">
+<div id="imageCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
         @for (int i = 0; i < carouselImages.Count; i++)
         {
@@ -30,11 +30,11 @@
             </div>
         }
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlides" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselSlides" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
@@ -75,7 +75,7 @@
     }
 </style>
 <script>
-    const carouselElement = document.querySelector('#carouselSlides');
+    const carouselElement = document.querySelector('#imageCarousel');
     const indicators = document.querySelectorAll('#carouselIndicators button');
 
     // Function to update indicator background color based on index
