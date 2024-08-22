@@ -1,0 +1,66 @@
+﻿@using System.ComponentModel
+@model List<DoctorListViewModel>
+@{
+    string GetEnumDescription(Enum value)
+    {
+        var descriptionAttribute = (DescriptionAttribute)value
+            .GetType()
+            .GetMember(value.ToString())[0]
+            .GetCustomAttributes(typeof(DescriptionAttribute), false)
+            .FirstOrDefault();
+
+        return descriptionAttribute != null ? descriptionAttribute.Description : value.ToString();
+    }
+    var imageList = new List<string>
+        {
+        "~/images/doctors/DOCTOR1.png",
+        "~/images/doctors/DOCTOR2.jfif",
+        };
+}
+
+<div class="row row-cols-1 row-cols-md-2 g-4 ">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="card-group col">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="@Url.Content(imageList[i])" class="card-img-top" alt="@System.IO.Path.GetFileNameWithoutExtension(Url.Content(imageList[i]))" style="height: 200px; width: 250px;">
+
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Dr. @Model[i].Name</h5>
+                    <p class="card-text">
+                        <i class="bi bi-award"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Specialty:</span> @GetEnumDescription(Model[i].Specialty)
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-geo-alt"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Workplace:</span> @Model[i].Address
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-envelope"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Email:</span>
+                        <a href="mailto:@Model[i].Email" style="color: #0D8F83; text-decoration: none;">
+                            @Model[i].Email
+                        </a>
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-telephone"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Phone:</span> @Model[i].Phone
+                    </p>
+                    <div>
+                        <div class="d-flex justify-content-around align-items-center">
+                            <button id="hover" type="button" class="btn" style="background-color:#EEEEEE; color:black">View profile</button>
+                            <button id="hover" type="button" class="btn" style="background-color:#0D8F83; color:white">Appointment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    #hover:hover {
+        opacity: 0.8;
+    }
+</style>

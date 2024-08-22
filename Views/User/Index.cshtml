@@ -1,0 +1,57 @@
+﻿
+@{
+    // Dummy data
+    var appointments = new List<dynamic>();
+    DateTime startDate = new DateTime(2024, 8, 22, 9, 0, 0);
+    DateTime endDate = new DateTime(2024, 8, 22, 17, 0, 0);
+    var random = new Random();
+
+    for (DateTime time = startDate; time <= endDate; time = time.AddMinutes(30))
+    {
+        appointments.Add(new
+        {
+            Time = time,
+            Status = random.Next(2) == 0 ? "Free" : "Occupied"
+        });
+    }
+}
+<div class="d-flex align-items-center">
+    <label for="Date" class="pe-2" >Select date</label>
+    <input type="date" class="form-control rounded-pill border-0 w-25" id="Date" style="background-color: #EEEEEE;">
+</div>
+<div class="d-flex flex-column justify-content-center align-items-center h-100 w-100">
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Time</th>
+                <th scope="col">Status</th>
+                <th scope="col">Select</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < appointments.Count; i++)
+            {
+                @if (appointments[i].Status == "Free")
+                {
+                    <tr class="table-success text-center">
+                        <td>@appointments[i].Time.ToString("hh:mm tt")</td>
+                        <td>@appointments[i].Status</td>
+                        <td><i class="bi bi-check" style="cursor: pointer; color: green; font-size: 1.5rem;" title="Select"></i></td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="table-danger text-center">
+                        <td>@appointments[i].Time.ToString("hh:mm tt")</td>
+                        <td>@appointments[i].Status</td>
+                        <td><i class="bi bi-x" style="color: red; font-size: 1.5rem;"></i></td>
+                    </tr>
+                }
+               
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Book an appointment</button>
+    </div>
+</div>

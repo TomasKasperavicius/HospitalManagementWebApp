@@ -1,4 +1,6 @@
-﻿namespace HospitalManagementWebApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HospitalManagementWebApp.Models
 {
     public class Address
     {
