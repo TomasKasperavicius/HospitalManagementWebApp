@@ -2,7 +2,7 @@
 
 namespace HospitalManagementWebApp.Models
 {
-    public class UserLogin
+    public class LoginCrediantials
     {
         [Required]
         public string Email { get; set; }

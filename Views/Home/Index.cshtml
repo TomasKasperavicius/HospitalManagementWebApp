@@ -2,15 +2,15 @@
     ViewData["Title"] = "Home Page";
     var cards = new List<dynamic>
     {
-        new { Image = "~/images/CALENDAR.svg", Text = "MAKE AN APPOINTMENT" },
-        new { Image = "~/images/DOCTOR.svg", Text = "FIND A DOCTOR" },
-        new { Image = "~/images/REPORT.svg", Text = "VIEW LAB REPORTS" },
-        new { Image = "~/images/DOCUMENT.svg", Text = "DOCUMENTS" },
-        new { Image = "~/images/TODOLIST.svg", Text = "APPOINTMENT LIST" },
-        new { Image = "~/images/REPORT.svg", Text = "UPLOAD DOCUMENTS" },
-        new { Image = "~/images/PHONECALL.svg", Text = "CALL FOR AN APPOINTMENT" },
-        new { Image = "~/images/CONTACT.svg", Text = "CONTACT US" },
-        new { Image = "~/images/USER.svg", Text = "ABOUT US" }
+        new { Image = "~/images/CALENDAR.svg", Text = "MAKE AN APPOINTMENT", Link = "/user" },
+        new { Image = "~/images/DOCTOR.svg", Text = "FIND A DOCTOR", Link = "#"  },
+        new { Image = "~/images/REPORT.svg", Text = "VIEW LAB REPORTS", Link = "#"  },
+        new { Image = "~/images/DOCUMENT.svg", Text = "DOCUMENTS", Link = "#"  },
+        new { Image = "~/images/TODOLIST.svg", Text = "APPOINTMENT LIST", Link = "#"  },
+        new { Image = "~/images/REPORT.svg", Text = "UPLOAD DOCUMENTS", Link = "#"  },
+        new { Image = "~/images/PHONECALL.svg", Text = "CALL FOR AN APPOINTMENT", Link = "#"  },
+        new { Image = "~/images/CONTACT.svg", Text = "CONTACT US", Link = "#"  },
+        new { Image = "~/images/USER.svg", Text = "ABOUT US", Link = "#"  }
     };
     var carouselImages = new List<string>
     {
@@ -61,7 +61,7 @@
                             <div class="card-body">
                                 <p class="card-text">@cards[i + j].Text</p>
                             </div>
-                            <a href="#" class="stretched-link"></a>
+                            <a href="@cards[i + j].Link" class="stretched-link"></a>
                         </div>
                     </div>
                 }

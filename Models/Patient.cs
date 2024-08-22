@@ -2,7 +2,7 @@
 
 namespace HospitalManagementWebApp.Models
 {
-    public class User
+    public class Patient
     {
         public int ID { get; set; }
         [Required]
