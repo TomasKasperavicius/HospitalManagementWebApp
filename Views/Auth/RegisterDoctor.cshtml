@@ -1,0 +1,106 @@
+﻿@model RegisterDoctorViewModel
+@{
+}
+<div class="d-flex flex-column justify-content-center align-items-center h-100 w-100">
+    <div class="text-center mb-4">
+        <img src="~/images/AUTH_MED_LOGO.svg" />
+    </div>
+    <form class="col-md-6 col-lg-4 g-3 p-4 border rounded" method="post" asp-action="RegisterDoctor" asp-controller="Auth">
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control rounded-pill border-0" placeholder="First Name" id="firstName" asp-for="FirstName" style="background-color: #EEEEEE;">
+            <label for="firstName">First Name</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control rounded-pill border-0" placeholder="Last Name" id="lastName" asp-for="LastName" style="background-color: #EEEEEE;">
+            <label for="lastName">Last Name</label>
+        </div>
+        <div class="mb-3">
+            <select asp-for="Specialty" class="form-select rounded-pill border-0" id="selectOption" style="background-color: #EEEEEE;">
+                <option selected disabled>Select specialty</option>
+                @foreach(var specialty in Enum.GetValues(typeof(Specialty)))
+                {
+                    <option value="@specialty">@Utils.GetEnumDescription((Specialty)specialty)</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Work schedule</label>
+            @foreach (var day in Enum.GetValues(typeof(Day)).Cast<Day>())
+            {
+                <div class="mb-3">
+                    <label for="@day" class="form-label">@day</label>
+                    <select asp-for="WorkStartTimes[day]" name="WorkStartTimes[@day]" class="form-select rounded-pill border-0 mb-2" id="@day" style="background-color: #EEEEEE;">
+                        <option selected disabled>Start time</option>
+                        @for (int i = 0; i < 24; i += 1)
+                        {
+                            var time = new TimeSpan(i, 0, 0);
+                            <option value="@time">@time</option>
+                        }
+                    </select>
+                    <select asp-for="WorkEndTimes[day]" class="form-select rounded-pill border-0 mb-2" id="@day" name="WorkEndTimes[@day]" style="background-color: #EEEEEE;">
+                        <option selected disabled>End time</option>
+                        @for (int i = 0; i < 24; i += 1)
+                        {
+                            var time = new TimeSpan(i, 0, 0);
+                            <option value="@time">@time</option>
+                        }
+                    </select>
+                    <select asp-for="LunchBreakStarts[day]" class="form-select rounded-pill border-0 mb-2" id="@day-LunchBreakStart" name="LunchBreakStarts[@day]" style="background-color: #EEEEEE;">
+                        <option selected disabled>Select Lunch Break Start</option>
+                        @for (int i = 0; i < 24; i += 1)
+                        {
+                            var time = new TimeSpan(i, 0, 0);
+                            <option value="@time">@time</option>
+                        }
+                    </select>
+
+                    <select asp-for="LunchBreakDurations[day]" class="form-select rounded-pill border-0" id="@day-LunchBreakDuration" name="LunchBreakDurations[@day]" style="background-color: #EEEEEE;">
+                        <option selected disabled>Select Lunch Break Duration</option>
+                        @for (int i = 0; i <= 8; i++)
+                        {
+                            <option value="@TimeSpan.FromHours(i)">@i hour(s)</option>
+                        }
+                    </select>
+                </div>
+
+               
+            }
+        </div>
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control rounded-pill border-0" id="street" asp-for="Street" style="background-color: #EEEEEE;" placeholder="Street">
+            <label for="street">Street</label>
+        </div>
+
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control rounded-pill border-0" id="city" asp-for="City" style="background-color: #EEEEEE;" placeholder="City">
+            <label for="city">City</label>
+        </div>
+
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control rounded-pill border-0" id="state" asp-for="State" style="background-color: #EEEEEE;" placeholder="State">
+            <label for="state">State</label>
+        </div>
+
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control rounded-pill border-0" id="country" asp-for="Country" style="background-color: #EEEEEE;" placeholder="Country">
+            <label for="country">Country</label>
+        </div>
+
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control rounded-pill border-0" placeholder="Email" id="email" asp-for="Email" style="background-color: #EEEEEE;">
+            <label for="email">Email</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input type="tel" class="form-control rounded-pill border-0" placeholder="Phone Number" id="phone" asp-for="Phone" name="phone" style="background-color: #EEEEEE;">
+            <label for="phone">Phone Number</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input type="password" class="form-control rounded-pill  border-0" id="password" asp-for="Password" style="background-color: #EEEEEE;" placeholder="Password">
+            <label for="password">Password</label>
+        </div>
+        
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>

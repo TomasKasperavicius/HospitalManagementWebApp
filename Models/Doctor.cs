@@ -17,7 +17,6 @@ namespace HospitalManagementWebApp.Models
         [Required]
         public string Phone { get; set; }
         public Role Role { get; set; }
-        public List<WorkSchedule> WorkSchedule { get; set; }
         public int AddressID { get; set; }
         public Specialty Specialty { get; set; }
     }

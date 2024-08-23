@@ -4,6 +4,7 @@ using HospitalManagementWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalManagementWebApp.Migrations
 {
     [DbContext(typeof(HospitalManagerDbContext))]
-    partial class HospitalManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240823144342_UpdateAppointmentModel")]
+    partial class UpdateAppointmentModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,6 +182,9 @@ namespace HospitalManagementWebApp.Migrations
                     b.Property<int>("DoctorID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DoctorID1")
+                        .HasColumnType("int");
+
                     b.Property<TimeSpan>("LunchBreakDuration")
                         .HasColumnType("time(6)");
 
@@ -194,6 +200,8 @@ namespace HospitalManagementWebApp.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("DoctorID");
+
+                    b.HasIndex("DoctorID1");
 
                     b.ToTable("workSchedules");
                 });
@@ -233,6 +241,15 @@ namespace HospitalManagementWebApp.Migrations
                         .HasForeignKey("DoctorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("HospitalManagementWebApp.Models.Doctor", null)
+                        .WithMany("WorkSchedule")
+                        .HasForeignKey("DoctorID1");
+                });
+
+            modelBuilder.Entity("HospitalManagementWebApp.Models.Doctor", b =>
+                {
+                    b.Navigation("WorkSchedule");
                 });
 #pragma warning restore 612, 618
         }

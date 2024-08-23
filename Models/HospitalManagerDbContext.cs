@@ -33,6 +33,10 @@ namespace HospitalManagementWebApp.Models
                 .HasOne<Patient>()
                 .WithMany()
                 .HasForeignKey(a => a.UserID);
+            modelBuilder.Entity<Appointment>()
+                .HasOne<Address>()
+                .WithMany()
+                .HasForeignKey(a => a.AddressID);
         }
 
     }

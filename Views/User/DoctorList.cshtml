@@ -1,16 +1,6 @@
-﻿@using System.ComponentModel
-@model List<DoctorListViewModel>
+﻿@model List<DoctorListViewModel>
 @{
-    string GetEnumDescription(Enum value)
-    {
-        var descriptionAttribute = (DescriptionAttribute)value
-            .GetType()
-            .GetMember(value.ToString())[0]
-            .GetCustomAttributes(typeof(DescriptionAttribute), false)
-            .FirstOrDefault();
-
-        return descriptionAttribute != null ? descriptionAttribute.Description : value.ToString();
-    }
+    
     var imageList = new List<string>
         {
         "~/images/doctors/DOCTOR1.png",
@@ -31,7 +21,7 @@
                     <h5 class="card-title">Dr. @Model[i].Name</h5>
                     <p class="card-text">
                         <i class="bi bi-award"></i>
-                        <span class="fw-bold" style="color: #0D8F83;">Specialty:</span> @GetEnumDescription(Model[i].Specialty)
+                        <span class="fw-bold" style="color: #0D8F83;">Specialty:</span> @Utils.GetEnumDescription(Model[i].Specialty)
                     </p>
                     <p class="card-text">
                         <i class="bi bi-geo-alt"></i>
@@ -50,8 +40,10 @@
                     </p>
                     <div>
                         <div class="d-flex justify-content-around align-items-center">
-                            <button id="hover" type="button" class="btn" style="background-color:#EEEEEE; color:black">View profile</button>
-                            <button id="hover" type="button" class="btn" style="background-color:#0D8F83; color:white">Appointment</button>
+                            <button  id="hover" type="button" class="btn" style="background-color:#EEEEEE; color:black">View profile</button>
+                            <a href="/User?doctorID=@Model[i].ID" class="btn" style="background-color:#0D8F83; color:white;  text-decoration:none;">Appointment</a>
+                            
+                            
                         </div>
                     </div>
                 </div>
