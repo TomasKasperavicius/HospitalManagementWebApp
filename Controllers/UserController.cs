@@ -64,5 +64,22 @@ namespace HospitalManagementWebApp.Controllers
             var results = query.ToList();
             return View(results);
         }
+        public IActionResult ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel)
+        {
+            var doctor = _context.doctors.Find(reserveAppointmentModel.DoctorID);
+            if (doctor == null) {
+                return View("Index");
+            }
+            var appointment = _context.appointments
+                        .Where(a => a.DoctorID == reserveAppointmentModel.DoctorID && a.Date == reserveAppointmentModel.Date)
+                        .ToList();
+            appointment[0].UserID = reserveAppointmentModel.UserID;
+            appointment[0].Status = Status.Occupied;
+
+            _context.appointments.Update(appointment[0]);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "User", new { doctorID = reserveAppointmentModel.DoctorID, Date = reserveAppointmentModel.Date });
+        }
     }
 }

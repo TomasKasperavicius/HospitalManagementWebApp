@@ -28,7 +28,7 @@
                     <tr class="table-success text-center">
                         <td> @Model[i].Date.ToString("dddd, MMMM dd, yyyy hh:mm tt") </td>
                         <td>@Model[i].Status</td>
-                        <td><i class="bi bi-check" style="cursor: pointer; color: green; font-size: 1.5rem;" title="Select"></i></td>
+                        <td><i class="bi bi-check" style="cursor: pointer; color: green; font-size: 1.5rem;" title="Select" data-bs-toggle="modal" data-userID="1" data-doctorID="@ViewBag.DoctorID" data-Date="@Model[i].Date" data-bs-target="#modalID"></i></td>
                     </tr>
                 }
                 else
@@ -43,7 +43,55 @@
             }
         </tbody>
     </table>
+    <div class="modal fade" id="modalID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formID" method="post" asp-action="ReserveAppointment" asp-controller="User">
+                        <input type="hidden" name="DoctorID" id="hiddenDoctorID">
+                        <input type="hidden" name="UserID" id="hiddenUserID">
+                        <input type="hidden" name="Date" id="hiddenDate">
+                    </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button id="hover" type="button" class="btn" style="background-color:#EEEEEE; color:black" data-bs-dismiss="modal">Close</button>
+                    <button id="hover" type="submit" form="formID" class="btn" style="background-color:#0D8F83; color:white;">Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-primary">Book an appointment</button>
     </div>
 </div>
+
+<style>
+    #hover:hover {
+        opacity: 0.8;
+    }
+</style>
+<script>
+    var modal = document.getElementById('modalID');
+    modal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        var modalTitle = modal.querySelector('.modal-title');
+        
+        // Getting passed values to modal via initiator button
+        var doctorID = button.getAttribute('data-doctorID');
+        var userID = button.getAttribute('data-userID');
+        var date = button.getAttribute('data-date');
+
+        // Setting hidden form input fields
+        modalTitle.textContent = date;
+        modal.querySelector('#hiddenDoctorID').value = doctorID;
+        modal.querySelector('#hiddenUserID').value = userID;
+        modal.querySelector('#hiddenDate').value = date;
+    });
+
+</script>
