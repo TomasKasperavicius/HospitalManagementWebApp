@@ -81,5 +81,26 @@ namespace HospitalManagementWebApp.Controllers
 
             return RedirectToAction("Index", "User", new { doctorID = reserveAppointmentModel.DoctorID, Date = reserveAppointmentModel.Date });
         }
+        public IActionResult Appointments(int patientID)
+        {
+            var query = from patient in _context.patients
+                        join appointment in _context.appointments on patient.ID equals appointment.UserID
+                        join doctor in _context.doctors on appointment.DoctorID equals doctor.ID
+                        join address in _context.addresses on appointment.AddressID equals address.ID
+                        where patient.ID == patientID
+                        select new AppointmentViewModel
+                        {
+                            ID = appointment.ID,
+                            Name = doctor.FirstName + " " + doctor.LastName,
+                            Email = doctor.Email,
+                            Phone = doctor.Phone,
+                            Specialty = (Specialty)doctor.Specialty,
+                            Date = appointment.Date,
+                            Address = address.Street + ", " + address.City + ", " + address.State + ", " + address.Country
+                        };
+
+            var results = query.ToList();
+            return View(results);
+        }
     }
 }

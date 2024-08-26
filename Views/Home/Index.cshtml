@@ -1,12 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    // TODO: Setup session management for dynamic userID
+    int userID = 1;
     var cards = new List<dynamic>
     {
         new { Image = "~/images/CALENDAR.svg", Text = "MAKE AN APPOINTMENT", Link = "/user" },
         new { Image = "~/images/DOCTOR.svg", Text = "FIND A DOCTOR", Link = "/user/doctorlist"  },
         new { Image = "~/images/REPORT.svg", Text = "VIEW LAB REPORTS", Link = "#"  },
         new { Image = "~/images/DOCUMENT.svg", Text = "DOCUMENTS", Link = "#"  },
-        new { Image = "~/images/TODOLIST.svg", Text = "APPOINTMENT LIST", Link = "#"  },
+        new { Image = "~/images/TODOLIST.svg", Text = "APPOINTMENT LIST", Link = $"/user/appointments?patientID={userID}"},
         new { Image = "~/images/REPORT.svg", Text = "UPLOAD DOCUMENTS", Link = "#"  },
         new { Image = "~/images/PHONECALL.svg", Text = "CALL FOR AN APPOINTMENT", Link = "#"  },
         new { Image = "~/images/CONTACT.svg", Text = "CONTACT US", Link = "#"  },
