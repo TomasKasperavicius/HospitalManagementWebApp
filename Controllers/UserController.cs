@@ -102,5 +102,22 @@ namespace HospitalManagementWebApp.Controllers
             var results = query.ToList();
             return View(results);
         }
+        public IActionResult CancelAppointment(int appointmentID)
+        {
+
+            var appointment = _context.appointments.SingleOrDefault(a => a.ID == appointmentID);
+            if (appointment != null)
+            {
+
+                var patientID = appointment.UserID;
+                appointment.UserID = null;
+                appointment.Status = Status.Free;
+
+                _context.appointments.Update(appointment);
+                _context.SaveChanges();
+                return RedirectToAction("Appointments", "User", new { patientID = patientID });
+            }
+            return RedirectToAction("Index", "User");
+        }
     }
 }
