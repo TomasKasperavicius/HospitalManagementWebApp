@@ -14,6 +14,8 @@ namespace HospitalManagementWebApp.Models
         public string Email { get; set; }
         [Required]
         public string Phone { get; set; }
+        [Required]
+        public IFormFile Image { get; set; }
         public Dictionary<Day, TimeSpan> WorkStartTimes { get; set; } = [];
         public Dictionary<Day, TimeSpan> WorkEndTimes { get; set; } = [];
         public Dictionary<Day, TimeSpan> LunchBreakStarts { get; set; } = [];

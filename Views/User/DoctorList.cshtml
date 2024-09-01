@@ -1,11 +1,7 @@
 ﻿@model List<DoctorListViewModel>
 @{
-    
-    var imageList = new List<string>
-        {
-        "~/images/doctors/DOCTOR1.png",
-        "~/images/doctors/DOCTOR2.jfif",
-        };
+    var test = Model[0].Image;
+
 }
 
 <div class="row row-cols-1 row-cols-md-2 g-4 ">
@@ -14,8 +10,10 @@
         <div class="card-group col">
             <div class="card">
                 <div class="d-flex justify-content-center align-items-center">
-                    <img src="@Url.Content(imageList[i])" class="card-img-top" alt="@System.IO.Path.GetFileNameWithoutExtension(Url.Content(imageList[i]))" style="height: 200px; width: 250px;">
-
+                    <img src="@Url.Content("~/"+Model[i].Image)"
+                         class="card-img-top"
+                         alt="@System.IO.Path.GetFileNameWithoutExtension(Model[i].Image)"
+                         style="height: 200px; width: 250px;">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Dr. @Model[i].Name</h5>

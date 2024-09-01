@@ -16,6 +16,8 @@ namespace HospitalManagementWebApp.Models
         public string Email { get; set; }
         [Required]
         public string Phone { get; set; }
+        [Required]
+        public string Image { get; set; }
         public Role Role { get; set; }
         public int AddressID { get; set; }
         public Specialty Specialty { get; set; }

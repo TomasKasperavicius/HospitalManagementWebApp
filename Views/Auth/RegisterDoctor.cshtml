@@ -5,7 +5,7 @@
     <div class="text-center mb-4">
         <img src="~/images/AUTH_MED_LOGO.svg" />
     </div>
-    <form class="col-md-6 col-lg-4 g-3 p-4 border rounded" method="post" asp-action="RegisterDoctor" asp-controller="Auth">
+    <form class="col-md-6 col-lg-4 g-3 p-4 border rounded" enctype="multipart/form-data" method="post" asp-action="RegisterDoctor" asp-controller="Auth">
         <div class="mb-3 form-floating">
             <input type="text" class="form-control rounded-pill border-0" placeholder="First Name" id="firstName" asp-for="FirstName" style="background-color: #EEEEEE;">
             <label for="firstName">First Name</label>
@@ -85,7 +85,10 @@
             <input type="text" class="form-control rounded-pill border-0" id="country" asp-for="Country" style="background-color: #EEEEEE;" placeholder="Country">
             <label for="country">Country</label>
         </div>
-
+        <div class="mb-3 form-floating">
+            <input type="file" class="form-control rounded-pill  border-0" id="Image" asp-for="Image" style="background-color: #EEEEEE;" placeholder="">
+            <label for="Image">Password</label>
+        </div>
         <div class="mb-3 form-floating">
             <input type="text" class="form-control rounded-pill border-0" placeholder="Email" id="email" asp-for="Email" style="background-color: #EEEEEE;">
             <label for="email">Email</label>

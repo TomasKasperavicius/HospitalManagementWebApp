@@ -1,7 +1,6 @@
 ﻿using HospitalManagementWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Extensions.Hosting;
 
 namespace HospitalManagementWebApp.Controllers
 {
@@ -58,6 +57,7 @@ namespace HospitalManagementWebApp.Controllers
                             Email = doctor.Email,
                             Phone = doctor.Phone,
                             Specialty = (Specialty)doctor.Specialty,
+                            Image = doctor.Image,
                             Address = address.Street + ", " + address.City + ", " + address.State + ", " + address.Country
                         };
 
