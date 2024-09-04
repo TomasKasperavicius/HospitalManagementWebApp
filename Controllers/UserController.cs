@@ -94,6 +94,7 @@ namespace HospitalManagementWebApp.Controllers
                             Name = doctor.FirstName + " " + doctor.LastName,
                             Email = doctor.Email,
                             Phone = doctor.Phone,
+                            Image = doctor.Image,
                             Specialty = (Specialty)doctor.Specialty,
                             Date = appointment.Date,
                             Address = address.Street + ", " + address.City + ", " + address.State + ", " + address.Country

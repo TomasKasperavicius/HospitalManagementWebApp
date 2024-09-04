@@ -12,6 +12,8 @@ namespace HospitalManagementWebApp.Models
         public string Phone { get; set; }
         public Specialty Specialty { get; set; }
         public DateTime Date { get; set; }
+        public string Image { get; set; }
+
         public string Address { get; set; }
     }
 }
