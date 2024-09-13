@@ -13,7 +13,6 @@ namespace HospitalManagementWebApp.Controllers
         }
         public IActionResult  Index(int? doctorID, DateTime? Date)
         {
-            //ViewBag.Date = Date ?? DateTime.Today;
             if (doctorID != null)
             {
                 var doctor = _context.doctors.Find(doctorID);

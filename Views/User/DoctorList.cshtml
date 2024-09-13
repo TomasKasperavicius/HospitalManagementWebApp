@@ -1,6 +1,5 @@
 ﻿@model List<DoctorListViewModel>
 @{
-    var test = Model[0].Image;
 
 }
 
@@ -40,8 +39,6 @@
                         <div class="d-flex justify-content-around align-items-center">
                             <button  id="hover" type="button" class="btn" style="background-color:#EEEEEE; color:black">View profile</button>
                             <a href="/User?doctorID=@Model[i].ID" class="btn" style="background-color:#0D8F83; color:white;  text-decoration:none;">Appointment</a>
-                            
-                            
                         </div>
                     </div>
                 </div>

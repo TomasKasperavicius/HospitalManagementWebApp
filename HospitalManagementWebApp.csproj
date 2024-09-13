@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Uploads\Images\DOCTOR1_b3ff312c-83f0-435b-b65d-e848d3438046.png" />
+    <None Include="wwwroot\Uploads\Images\DOCTOR1.png" />
   </ItemGroup>
 
 </Project>
