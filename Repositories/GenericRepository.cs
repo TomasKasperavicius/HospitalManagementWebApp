@@ -6,7 +6,7 @@ namespace HospitalManagementWebApp.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly DbContext _context;
+        protected readonly DbContext _context;
 
         public GenericRepository(DbContext context)
         {
@@ -29,16 +29,18 @@ namespace HospitalManagementWebApp.Repositories
             return _context.Set<T>().Where(predicate).ToList(); 
         }
 
-        public void Add(T entity)
+        public T Add(T entity)
         {
             _context.Set<T>().Add(entity);
             SaveChanges();
+            return entity;
         }
 
-        public void Update(T entity)
+        public T Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             SaveChanges();
+            return entity;
         }
 
         public void Delete(T entity)
@@ -68,16 +70,18 @@ namespace HospitalManagementWebApp.Repositories
             return await _context.Set<T>().Where(predicate).ToListAsync();  
         }
 
-        public async Task AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
             await SaveChangesAsync();
+            return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+            return entity;
         }
 
         public async Task DeleteAsync(T entity)

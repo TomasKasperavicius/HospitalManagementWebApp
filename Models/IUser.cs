@@ -2,7 +2,7 @@
 
 namespace HospitalManagementWebApp.Models
 {
-    public class Patient : IUser
+    public interface IUser
     {
         public int ID { get; set; }
         [Required]
@@ -16,12 +16,5 @@ namespace HospitalManagementWebApp.Models
         [Required]
         public string Phone { get; set; }
         public Role Role { get; set; }
-
     }
-    public enum Role { 
-        Admin,
-        Patient,
-        Doctor
-    }
-
 }

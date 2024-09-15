@@ -1,10 +1,25 @@
 using HospitalManagementWebApp.Models;
+using HospitalManagementWebApp.Repositories;
+using HospitalManagementWebApp.Repositories.Interfaces;
+using HospitalManagementWebApp.Services;
+using HospitalManagementWebApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
+builder.Services.AddTransient<IPatientRepository, PatientRepository>();
+builder.Services.AddTransient<IAddressRepository, AddressRepository>();
+builder.Services.AddTransient<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddTransient<IWorkScheduleRepository, WorkScheduleRepository>();
+
+
 builder.Services.AddDbContext<HospitalManagerDbContext>(options => options.UseMySql(System.Environment.GetEnvironmentVariable("MySQL_CON_STRING"), new MySqlServerVersion(new Version(8, 0, 31))));
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using HospitalManagementWebApp.Models;
 using HospitalManagementWebApp.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalManagementWebApp.Repositories
 {
@@ -7,7 +8,12 @@ namespace HospitalManagementWebApp.Repositories
     {
         public WorkScheduleRepository(HospitalManagerDbContext context) : base(context)
         {
-            
+        }
+        public IEnumerable<WorkSchedule> AddRange(IEnumerable<WorkSchedule> workSchedules)
+        {
+            _context.Set<WorkSchedule>().AddRange(workSchedules);
+            _context.SaveChanges();
+            return workSchedules;
         }
     }
 }

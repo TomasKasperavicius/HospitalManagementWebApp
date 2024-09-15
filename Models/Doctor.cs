@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HospitalManagementWebApp.Models
 {
-    public class Doctor
+    public class Doctor : IUser
     {
         public int ID { get; set; }
         [Required]

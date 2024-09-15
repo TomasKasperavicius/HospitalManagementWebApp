@@ -4,7 +4,7 @@
 <form method="post" id="dateForm" asp-action="Index" asp-controller="User" asp-route-doctorID="@ViewBag.DoctorID">
 <div class="d-flex align-items-center">
     <label for="Date" class="pe-2">Select date</label>
-        <input type="date" onchange="this.form.submit()" class="form-control rounded-pill border-0 w-25" id="Date" name="Date" value="@ViewBag.Date.ToString("yyyy-MM-dd")" style="background-color: #EEEEEE;">
+        <input type="date" onchange="this.form.submit()" class="form-control rounded-pill border-0 w-25" id="Date" name="date" value="@ViewBag.Date.ToString("yyyy-MM-dd")" style="background-color: #EEEEEE;">
 </div>
 </form>
 <div class="d-flex flex-column justify-content-center align-items-center h-100 w-100" id="container">
@@ -39,7 +39,6 @@
                         <td><i class="bi bi-x" style="color: red; font-size: 1.5rem;"></i></td>
                     </tr>
                 }
-
             }
         </tbody>
     </table>
