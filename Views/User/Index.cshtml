@@ -1,6 +1,11 @@
 ﻿@model List<Appointment>
 @{
 }
+<div class="mb-3">
+    <a asp-action="Index" asp-controller="Home" id="hover" class="btn" style="background-color:#0D8F83; color:white;">
+        Back <i class="bi bi-arrow-right"></i>
+    </a>
+</div>
 <form method="post" id="dateForm" asp-action="Index" asp-controller="User" asp-route-doctorID="@ViewBag.DoctorID">
 <div class="d-flex align-items-center">
     <label for="Date" class="pe-2">Select date</label>
