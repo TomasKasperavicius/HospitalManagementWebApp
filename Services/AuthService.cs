@@ -1,6 +1,11 @@
 ﻿using HospitalManagementWebApp.Models;
+using HospitalManagementWebApp.Models.Dto;
 using HospitalManagementWebApp.Repositories.Interfaces;
 using HospitalManagementWebApp.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace HospitalManagementWebApp.Services
 {
@@ -23,8 +28,8 @@ namespace HospitalManagementWebApp.Services
             var existingPatient = patientRepository.Find(p => p.Email == patient.Email).FirstOrDefault();
             if (existingPatient == null)
             {
-                patientRepository.Add(patient);
-                return patient;
+                var newPatient = patientRepository.Add(patient);
+                return newPatient;
             }
             return existingPatient;
         }
@@ -100,7 +105,6 @@ namespace HospitalManagementWebApp.Services
         private void CreateAppointments(RegisterDoctorViewModel registerDoctorViewModel, int doctorID, int addressID)
         {
             // Create appointments based on work schedule
-            // Get the current date and determine the end date (3 months later)
             List<Appointment> appointments = new List<Appointment>();
             DateTime currentDate = DateTime.Today;
             DateTime endDate = currentDate.AddMonths(3);
@@ -178,6 +182,28 @@ namespace HospitalManagementWebApp.Services
                 Console.WriteLine(ex);
             }
             return null;
+        }
+        public string GenerateJwt(JwtDTO jwtDTO)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtSecret = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET") ?? throw new ArgumentNullException("JWT SECRET IS NULL"));  // Strong secret key from appsettings.json
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier,jwtDTO.ID.ToString()),
+                    new Claim(ClaimTypes.Name, jwtDTO.FirstName),
+                    new Claim(ClaimTypes.Surname, jwtDTO.LastName),
+                    new Claim(ClaimTypes.Email, jwtDTO.Email),
+                    new Claim(ClaimTypes.Role, jwtDTO.Role.ToString())
+                }),
+                Issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? throw new ArgumentNullException("JWT_ISSUER SECRET IS NULL"),
+                Audience = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? throw new ArgumentNullException("JWT_ISSUER SECRET IS NULL"),
+                Expires = DateTime.UtcNow.AddHours(2),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(jwtSecret), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var jwt = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(jwt);
         }
     }
 }

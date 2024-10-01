@@ -1,11 +1,15 @@
 ﻿using HospitalManagementWebApp.Models;
 using HospitalManagementWebApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HospitalManagementWebApp.Controllers
 {
     public class UserController(IUserService userService) : Controller
     {
+        [Authorize]
         public IActionResult Index(int? doctorID, DateTime? date)
         {
             if (doctorID != null)
@@ -18,14 +22,22 @@ namespace HospitalManagementWebApp.Controllers
             }
             return RedirectToAction("DoctorList", "User");
         }
-
+        [AllowAnonymous]
         public IActionResult DoctorList()
         {
             var doctors = userService.GetDoctors();
             return View(doctors);
         }
+        [Authorize]
         public IActionResult ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel)
         {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; 
+
+            if (id != reserveAppointmentModel.UserID.ToString())
+            {
+                return Unauthorized();
+            }
+            
             var newReserveAppointmentModel = userService.ReserveAppointment(reserveAppointmentModel);
             if (newReserveAppointmentModel == null)
             {
@@ -33,14 +45,27 @@ namespace HospitalManagementWebApp.Controllers
             }
             return RedirectToAction("Index", "User", new { doctorID = newReserveAppointmentModel.DoctorID, Date = newReserveAppointmentModel.Date });
         }
+        [Authorize]
         public IActionResult Appointments(int patientID)
         {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (id != patientID.ToString())
+            {
+                return Unauthorized();
+            }
             var appointments = userService.GetPatientAppointments(patientID);
             return View(appointments);
         }
+        [Authorize]
         public IActionResult CancelAppointment(int appointmentID)
         {
             var patientID = userService.CancelAppointment(appointmentID);
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (id != patientID.ToString())
+            {
+                return Unauthorized();
+            }
             if (patientID != null)
             {
                 return RedirectToAction("Appointments", "User", new { patientID = patientID });
