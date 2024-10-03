@@ -1,5 +1,6 @@
 ﻿using HospitalManagementWebApp.Models;
 using HospitalManagementWebApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -71,6 +72,11 @@ namespace HospitalManagementWebApp.Controllers
                 return RedirectToAction("Appointments", "User", new { patientID = patientID });
             }
             return RedirectToAction("Index", "User");
+        }
+        public async Task<IActionResult> Logout()
+        {
+            Response.Cookies.Delete("JwtToken"); 
+            return RedirectToAction("Login", "Auth");
         }
     }
 }
