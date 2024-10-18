@@ -82,7 +82,29 @@ namespace HospitalManagementWebApp.Services
             }
             return doctorViewModels;
         }
-
+        public DoctorListViewModel? GetDoctor(int id)
+        {
+            var doctor = doctorRepository.GetById(id);
+            if (doctor != null)
+            {
+                var address = addressRepository.GetById(doctor.AddressID);
+                if (address != null)
+                {
+                    var doctorViewModel = new DoctorListViewModel
+                    {
+                        ID = doctor.ID,
+                        Name = doctor.FirstName + " " + doctor.LastName,
+                        Email = doctor.Email,
+                        Phone = doctor.Phone,
+                        Specialty = (Specialty)doctor.Specialty,
+                        Image = doctor.Image,
+                        Address = $"{address.Street}, {address.City}, {address.State}, {address.Country}"
+                    };
+                    return doctorViewModel;
+                }
+            }
+            return null;
+        }
         public ReserveAppointmentModel? ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel)
         {
             var doctor = doctorRepository.GetById(reserveAppointmentModel.DoctorID);

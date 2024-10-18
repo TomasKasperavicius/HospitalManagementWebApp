@@ -1,0 +1,46 @@
+﻿@model HospitalManagementWebApp.Models.DoctorListViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="mb-3">
+    <a asp-action="DoctorList" asp-controller="User" id="hover" class="btn" style="background-color:#0D8F83; color:white;">
+        Back <i class="bi bi-arrow-right"></i>
+    </a>
+</div>
+<div class="container mt-4">
+    <h2>Dr. @Model.Name</h2>
+    <div class="card mb-4">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="@Url.Content("~/"+Model.Image)" class="card-img" alt="@Model.Name">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. @Model.Name</h5>
+                    <p class="card-text">
+                        <i class="bi bi-award"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Specialty:</span> @Utils.GetEnumDescription(Model.Specialty)
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-geo-alt"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Workplace:</span> @Model.Address
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-envelope"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Email:</span>
+                        <a href="mailto:@Model.Email" style="color: #0D8F83; text-decoration: none;">
+                            @Model.Email
+                        </a>
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-telephone"></i>
+                        <span class="fw-bold" style="color: #0D8F83;">Phone:</span> @Model.Phone
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

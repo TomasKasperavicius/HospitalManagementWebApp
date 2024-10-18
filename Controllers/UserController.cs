@@ -29,6 +29,12 @@ namespace HospitalManagementWebApp.Controllers
             var doctors = userService.GetDoctors();
             return View(doctors);
         }
+        [AllowAnonymous]
+        public IActionResult DoctorProfile(int doctorID)
+        {
+            var doctor = userService.GetDoctor(doctorID);
+            return View(doctor);
+        }
         [Authorize]
         public IActionResult ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel)
         {

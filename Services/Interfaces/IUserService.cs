@@ -9,5 +9,6 @@ namespace HospitalManagementWebApp.Services.Interfaces
         List<AppointmentViewModel> GetPatientAppointments(int patientID);
         List<Appointment> GetDoctorAppointments(int? doctorID, DateTime date);
         int? CancelAppointment(int appointmentID);
+        DoctorListViewModel? GetDoctor(int id);
     }
 }
