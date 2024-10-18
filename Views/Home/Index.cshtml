@@ -4,9 +4,9 @@
     int userID = 1;
     var cards = new List<dynamic>
     {
-        new { Image = "~/images/DOCTOR_ICON.svg", Text = "FIND A DOCTOR", Link = "/user/doctorlist"  },
+        new { Image = "~/images/DOCTOR_ICON.svg", Text = "FIND A DOCTOR", Link = "/doctor/doctorlist"  },
         new { Image = "~/images/MEDICAL_REPORT.svg", Text = "VIEW MEDICAL REPORTS", Link = "#"  },
-        new { Image = "~/images/APPOINTMENT_LIST.svg", Text = "APPOINTMENT LIST", Link = $"/user/appointments?patientID={userID}"},
+        new { Image = "~/images/APPOINTMENT_LIST.svg", Text = "APPOINTMENT LIST", Link = $"/patient/appointments?patientID={userID}"},
     };
     var carouselImages = new List<string>
     {

@@ -1,40 +1,14 @@
 ﻿using HospitalManagementWebApp.Models;
 using HospitalManagementWebApp.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace HospitalManagementWebApp.Controllers
 {
-    public class UserController(IUserService userService) : Controller
+    public class PatientController(IPatientService userService) : Controller
     {
-        [Authorize]
-        public IActionResult Index(int? doctorID, DateTime? date)
-        {
-            if (doctorID != null)
-            {
-                DateTime newDate = date ?? DateTime.Today;
-                ViewBag.Date = newDate;
-                List<Appointment> appointments = userService.GetDoctorAppointments(doctorID, newDate);
-                ViewBag.DoctorID = doctorID;
-                return View(appointments);
-            }
-            return RedirectToAction("DoctorList", "User");
-        }
-        [AllowAnonymous]
-        public IActionResult DoctorList()
-        {
-            var doctors = userService.GetDoctors();
-            return View(doctors);
-        }
-        [AllowAnonymous]
-        public IActionResult DoctorProfile(int doctorID)
-        {
-            var doctor = userService.GetDoctor(doctorID);
-            return View(doctor);
-        }
+        
         [Authorize]
         public IActionResult ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel)
         {
@@ -50,7 +24,7 @@ namespace HospitalManagementWebApp.Controllers
             {
                 return View("Index");
             }
-            return RedirectToAction("Index", "User", new { doctorID = newReserveAppointmentModel.DoctorID, Date = newReserveAppointmentModel.Date });
+            return RedirectToAction("Index", "Doctor", new { doctorID = newReserveAppointmentModel.DoctorID, Date = newReserveAppointmentModel.Date });
         }
         [Authorize]
         public IActionResult Appointments(int patientID)
@@ -77,7 +51,7 @@ namespace HospitalManagementWebApp.Controllers
             {
                 return RedirectToAction("Appointments", "User", new { patientID = patientID });
             }
-            return RedirectToAction("Index", "User");
+            return RedirectToAction("Index", "Doctor");
         }
         public async Task<IActionResult> Logout()
         {

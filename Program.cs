@@ -14,8 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 
 builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
 builder.Services.AddTransient<IPatientRepository, PatientRepository>();
@@ -72,11 +72,9 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<HospitalManagerDbContext>(options => options.UseMySql(Environment.GetEnvironmentVariable("MySQL_CON_STRING") ?? throw new ArgumentNullException("MySQL CONNECTION STRING IS NULL"), new MySqlServerVersion(new Version(8, 0, 31))));
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

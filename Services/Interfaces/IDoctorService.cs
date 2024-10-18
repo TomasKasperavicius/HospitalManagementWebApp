@@ -2,13 +2,10 @@
 
 namespace HospitalManagementWebApp.Services.Interfaces
 {
-    public interface IUserService
+    public interface IDoctorService
     {
         List<DoctorListViewModel> GetDoctors();
-        ReserveAppointmentModel? ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel);
-        List<AppointmentViewModel> GetPatientAppointments(int patientID);
         List<Appointment> GetDoctorAppointments(int? doctorID, DateTime date);
-        int? CancelAppointment(int appointmentID);
         DoctorListViewModel? GetDoctor(int id);
     }
 }
