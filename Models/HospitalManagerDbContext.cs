@@ -13,6 +13,7 @@ namespace HospitalManagementWebApp.Models
         public DbSet<Address> addresses { get; set; }
         public DbSet<WorkSchedule> workSchedules { get; set; }
         public DbSet<Appointment> appointments { get; set; }
+        public DbSet<MedicalHistory> medicalHistories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Doctor>()
@@ -37,6 +38,14 @@ namespace HospitalManagementWebApp.Models
                 .HasOne<Address>()
                 .WithMany()
                 .HasForeignKey(a => a.AddressID);
+            modelBuilder.Entity<MedicalHistory>()
+                .HasOne<Patient>()
+                .WithMany()
+                .HasForeignKey(mh => mh.PatientID);
+            modelBuilder.Entity<MedicalHistory>()
+                .HasOne<Doctor>()
+                .WithMany()
+                .HasForeignKey(mh => mh.DoctorID);
         }
 
     }
