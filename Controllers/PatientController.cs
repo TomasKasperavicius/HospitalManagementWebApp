@@ -48,6 +48,7 @@ namespace HospitalManagementWebApp.Controllers
                 return Unauthorized();
             }
             var medicalHistory = userService.GetPatientMedicalHistory(patientID);
+            ViewBag.DoctorID = id;
             return View(medicalHistory);
         }
         [Authorize]
