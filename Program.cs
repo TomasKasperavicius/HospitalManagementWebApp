@@ -22,6 +22,7 @@ builder.Services.AddTransient<IPatientRepository, PatientRepository>();
 builder.Services.AddTransient<IAddressRepository, AddressRepository>();
 builder.Services.AddTransient<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddTransient<IWorkScheduleRepository, WorkScheduleRepository>();
+builder.Services.AddTransient<IMedicalHistoryRepository, MedicalHistoryRepository>();
 
 builder.Services.AddAuthentication(options =>
 {

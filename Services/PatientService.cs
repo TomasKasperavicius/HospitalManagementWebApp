@@ -4,9 +4,12 @@ using HospitalManagementWebApp.Services.Interfaces;
 
 namespace HospitalManagementWebApp.Services
 {
-    public class PatientService(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository, IAddressRepository addressRepository) : IPatientService
+    public class PatientService(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository, IAddressRepository addressRepository, IMedicalHistoryRepository medicalHistoryRepository) : IPatientService
     {
-        
+        public Patient? GetPatient(int patientID)
+        {
+            return patientRepository.GetById(patientID);
+        }
         public List<AppointmentViewModel> GetPatientAppointments(int patientID)
         {
             var patient = patientRepository.GetById(patientID);
@@ -37,6 +40,10 @@ namespace HospitalManagementWebApp.Services
             }
 
             return appointmentViewModels;
+        }
+        public List<MedicalHistory> GetPatientMedicalHistory(int patientID)
+        {
+            return medicalHistoryRepository.GetPatientMedicalHistory(patientID).ToList();
         }
         public ReserveAppointmentModel? ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel)
         {

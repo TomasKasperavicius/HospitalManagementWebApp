@@ -1,12 +1,26 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewData["Title"] = "Home Page";
-    // TODO: Setup session management for dynamic userID
-    int userID = 1;
+    var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+    var appointmentLink = "";
+    string ID = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    if (string.IsNullOrEmpty(ID))
+    {
+        appointmentLink = "Auth/login";
+    }
+    else if (roleClaim == "Doctor")
+    {
+        appointmentLink = $"/Doctor/Appointments?doctorID={ID}";
+    }
+    else if (roleClaim == "Patient")
+    {
+        appointmentLink = $"/patient/appointments?patientID={ID}";
+    }
     var cards = new List<dynamic>
     {
         new { Image = "~/images/DOCTOR_ICON.svg", Text = "FIND A DOCTOR", Link = "/doctor/doctorlist"  },
         new { Image = "~/images/MEDICAL_REPORT.svg", Text = "VIEW MEDICAL REPORTS", Link = "#"  },
-        new { Image = "~/images/APPOINTMENT_LIST.svg", Text = "APPOINTMENT LIST", Link = $"/patient/appointments?patientID={userID}"},
+        new { Image = "~/images/APPOINTMENT_LIST.svg", Text = "APPOINTMENT LIST", Link = appointmentLink},
     };
     var carouselImages = new List<string>
     {

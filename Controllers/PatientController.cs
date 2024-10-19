@@ -39,6 +39,18 @@ namespace HospitalManagementWebApp.Controllers
             return View(appointments);
         }
         [Authorize]
+        public IActionResult MedicalHistory(int patientID)
+        {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (id != patientID.ToString())
+            {
+                return Unauthorized();
+            }
+            var medicalHistory = userService.GetPatientMedicalHistory(patientID);
+            return View(medicalHistory);
+        }
+        [Authorize]
         public IActionResult CancelAppointment(int appointmentID)
         {
             var patientID = userService.CancelAppointment(appointmentID);

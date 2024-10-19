@@ -6,7 +6,7 @@
         Back <i class="bi bi-arrow-right"></i>
     </a>
 </div>
-<form method="post" id="dateForm" asp-action="Index" asp-controller="User" asp-route-doctorID="@ViewBag.DoctorID">
+<form method="post" id="dateForm" asp-action="Index" asp-controller="Doctor" asp-route-doctorID="@ViewBag.DoctorID">
 <div class="d-flex align-items-center">
     <label for="Date" class="pe-2">Select date</label>
         <input type="date" onchange="this.form.submit()" class="form-control rounded-pill border-0 w-25" id="Date" name="date" value="@ViewBag.Date.ToString("yyyy-MM-dd")" style="background-color: #EEEEEE;">
@@ -55,7 +55,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formID" method="post" asp-action="ReserveAppointment" asp-controller="User">
+                    <form id="formID" method="post" asp-action="ReserveAppointment" asp-controller="Patient">
                         <input type="hidden" name="DoctorID" id="hiddenDoctorID">
                         <input type="hidden" name="UserID" id="hiddenUserID">
                         <input type="hidden" name="Date" id="hiddenDate">

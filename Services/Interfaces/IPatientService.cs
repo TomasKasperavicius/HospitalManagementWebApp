@@ -7,5 +7,7 @@ namespace HospitalManagementWebApp.Services.Interfaces
         ReserveAppointmentModel? ReserveAppointment(ReserveAppointmentModel reserveAppointmentModel);
         List<AppointmentViewModel> GetPatientAppointments(int patientID);
         int? CancelAppointment(int appointmentID);
+        List<MedicalHistory> GetPatientMedicalHistory(int patientID);
+        Patient? GetPatient(int patientID);
     }
 }
